@@ -3,11 +3,16 @@ const io = require('socket.io')(8000)
 const users = {};
 
 io.on('connection', socket => {
-    socket.on('if-new-user-joined', name => {
-        users[socket.id] = name;
-        socket.broadcast.emit('user-joined', name)
+    socket.on('new-user-joined', names => {
+        // console.log("hi",names)
+        users[socket.id] = names;
+        socket.broadcast.emit('user-joined', names)
     });
-    socket.on('if-send', message => {
-        socket.broadcast.emit('receive', { message: message, name: users[socket.id] })
+    socket.on('send', message => {
+        socket.broadcast.emit('receive', { message: message, names: users[socket.id] })
+    });
+    socket.on('disconnect', message => {
+        socket.broadcast.emit('left', users[socket.id] )
+        delete users[socket.id]
     });
 })

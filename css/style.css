@@ -5,7 +5,7 @@
     width: 70px;
 }
 
-.message-container {
+.container {
     max-width: 70vw;
     border: 2px solid black;
     margin: auto;
@@ -41,7 +41,7 @@ body {
     clear: both;
 }
 
-#form-container {
+#send-container {
     display: block;
     margin: auto;
     /* text-align: center; */
